@@ -14,7 +14,7 @@ Displays tasks from Google Tasks App
 ## Installation
 To install the module, use your terminal to:
 1. Navigate to your MagicMirror's modules folder. If you are using the default installation directory, use the command:<br />`cd ~/MagicMirror/modules`
-2. Clone the module:<br />`git clone https://github.com/jayked/MMM-GoogleTasks.git`
+2. Clone the module:<br />`git clone https://github.com/themox/MMM-GoogleTasks.git`
 3. Install Google API:<br />`npm install googleapis`
 
 ## Authentication Setup
@@ -60,3 +60,7 @@ var config = {
 | `updateInterval`        | *Optional* - Interval at which content updates (Milliseconds) <br><br> **Possible values:** `2000` - `86400000` (Tasks API has default maximum of 50,000 calls per day.) <br> **Default value:** `10000` (10 seconds)
 | `animationSpeed`        | Speed of the update animation. (Milliseconds) <br><br> **Possible values:** `0` - `5000` <br> **Default value:** `2000` (2 seconds)
 | `tableClass`            | Name of the classes issued from `main.css`. <br><br> **Possible values:** xsmall, small, medium, large, xlarge. <br> **Default value:** _small_
+| `sortOrder`             | Using `SortBy` element, determines which direction to sort. <br><br> **Possible values:** `ascending`  `descending` <br> **Default value:** `ascending`
+| `sortBy`                | Which Google Task subelement to use for sorting <br><br> **Possible values:** `due`  `updated`  `title`<br> **Default value:** `due`
+| `groupSubTasks`         | Whether to group sub tasks under their parents or list them on their own.<br><br> **Possible values:** `true`  `false` <br> **Default value:** `true`
+| `taskIcon`              | Icon to use as bullet point for each task, something from the iconify icon set.  <br>**Default value:** `bx:square-rounded`
