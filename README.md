@@ -63,4 +63,4 @@ var config = {
 | `sortOrder`             | Using `SortBy` element, determines which direction to sort. <br><br> **Possible values:** `ascending`  `descending` <br> **Default value:** `ascending`
 | `sortBy`                | Which Google Task subelement to use for sorting <br><br> **Possible values:** `due`  `updated`  `title`<br> **Default value:** `due`
 | `groupSubTasks`         | Whether to group sub tasks under their parents or list them on their own.<br><br> **Possible values:** `true`  `false` <br> **Default value:** `true`
-| `taskIcon`              | Icon to use as bullet point for each task, something from the iconify icon set.  <br>**Default value:** `bx:square-rounded`
+| `taskIcon`              | Icon to use as bullet point for each task, something from the [iconify icon set](https://icon-sets.iconify.design/).  <br>**Default value:** `bx:square-rounded`
