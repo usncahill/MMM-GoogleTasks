@@ -1,4 +1,4 @@
-odule.register("MMM-GoogleTasks", {
+Module.register("MMM-GoogleTasks", {
 	// Default module config.
 	defaults: {
 
