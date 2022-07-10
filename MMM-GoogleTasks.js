@@ -4,7 +4,6 @@ Module.register("MMM-GoogleTasks", {
 
 		listID: "", // List ID (see authenticate.js)
 		maxResults: 10,		
-		showCompleted: false, 	//set showCompleted and showHidden true
 		dateFormat: "MMM Do", 	// Format to display dates (moment.js formats)
 		updateInterval: 100000, // Time between content updates (millisconds)
 		animationSpeed: 2000, 	// Speed of the update animation (milliseconds)
@@ -51,14 +50,6 @@ Module.register("MMM-GoogleTasks", {
 		} else {
 			this.sendSocketNotification("MODULE_READY", {});
 		}
-
-		// API requies completed config settings if showCompleted
-		if (!this.config.showCompleted) {
-			// delete this.config.completedMin;
-			// delete this.config.completedMax;
-		} else {
-			this.config.showHidden = true;
-		}
 	},
 
 	socketNotificationReceived: function(notification, payload) {
@@ -98,7 +89,7 @@ Module.register("MMM-GoogleTasks", {
 		var taskList = this.tasks;
 		
 		if (taskList) {
-			var numTasks = Object.keys(taskList).length;
+			numTasks = Object.keys(taskList).length;
 		}
 
 		if (!taskList) {
@@ -145,10 +136,6 @@ Module.register("MMM-GoogleTasks", {
 
 		var titleWrapper, dateWrapper, noteWrapper;
 
-		//@TODO remove references to completed tasks.  I don't think this is necessary in this MM context.
-
-
-
 		// build a dictionary to track parent/child relationships if subtasks
         	parents = {};
 
@@ -174,10 +161,6 @@ Module.register("MMM-GoogleTasks", {
 		icon2 = "\"></span>";
 		task_icon = this.config.taskIcon; //"bx:square-rounded";
 
-
-		//mdi:square-rounded-outline
-		//akar-icons:circle
-
         	// next loop displays the tasks.
         	task_count = 0;
 		groupSubTasks = this.config.groupSubTasks;
@@ -197,13 +180,6 @@ Module.register("MMM-GoogleTasks", {
                         	titleWrapper = document.createElement('div');
                         	titleWrapper.className = "item title";
 				titleWrapper.innerHTML = icon1 + task_icon + icon2 + item.title;
-
-                        	//titleWrapper.innerHTML = "<i class=\"fa fa-circle-thin\" ></i>" + item.title; // this one works
-
-                        	// If item is completed change icon to checkmark
-                        	if (item.status === 'completed') {
-                                	titleWrapper.innerHTML = "<i class=\"fa fa-check\" ></i>" + item.title;
-                        	}
 
                         	if (groupSubTasks && item.parent) {
                                 	titleWrapper.className = "item child";
@@ -247,18 +223,9 @@ Module.register("MMM-GoogleTasks", {
                                 		titleWrapper = document.createElement('div');
                                 		titleWrapper.className = "item title";
 
-                                		//titleWrapper.innerHTML = "<i class=\"" + task_icon + "\" ></i>" + item.title;
 						titleWrapper.innerHTML = icon1 + task_icon + icon2 + item.title;
 
-                                		// If item is completed change icon to checkmark
-                                		if (item.status === 'completed') {
-                                        		titleWrapper.innerHTML = "<i class=\"fa fa-check\" ></i>" + item.title;
-                                		}
-
-                                		if (item.parent) {
-							//@TODO based on if clauses, this should always be true if we are here.  Can remove this?
-                                	        	titleWrapper.className = "item child";
-                                		}
+                                	        titleWrapper.className = "item child";
 
                                 		if (item.notes) {
                                         		noteWrapper = document.createElement('div');
@@ -276,7 +243,7 @@ Module.register("MMM-GoogleTasks", {
                                 		}
 
                                 		// Create borders between parent items
-                                		if (numTasks < this.tasks.length-1 && !this.tasks[numTasks+1].parent) {
+                                		if (numTasks < this.tasks.length - 1 && !this.tasks[numTasks + 1].parent) {
                                         		titleWrapper.style.borderBottom = "1px solid #666";
                                         		dateWrapper.style.borderBottom = "1px solid #666";
                                 		}
@@ -397,7 +364,7 @@ Module.register("MMM-GoogleTasks", {
                         updateB = "";
                 }
 
-		return updateA.toLowerCase().localCompare(updateB.toLowerCase()) * this.sortOrderVal;
+		return updateA.toLowerCase().localCompare(updateB.toLowerCase());
         },
         // Compare Google TaskLIst item based on  alphabetical title
         compare_title_descending: function(itemA, itemB) {
@@ -413,7 +380,7 @@ Module.register("MMM-GoogleTasks", {
                         updateB = "";
                 }
 
-                return updateA.toLowerCase().localCompare(updateB.toLowerCase()) * this.sortOrderVal * -1;
+                return updateA.toLowerCase().localCompare(updateB.toLowerCase()) * -1;
         },
 
 });
