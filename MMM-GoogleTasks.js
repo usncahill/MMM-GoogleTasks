@@ -35,6 +35,8 @@ Module.register("MMM-GoogleTasks", {
 		this.ASCENDING = 1;
 		this.DESCENDING = -1;
 		this.sortOrderVal = 1;
+		this.hasError = false;
+		this.errorMessage = "";
 
 
 		if (this.config.sortOrder == "ascending") {
@@ -42,8 +44,6 @@ Module.register("MMM-GoogleTasks", {
 		} else if (this.config.sortOrder == "descending") {
 			this.sortOrderVal = this.DESCENDING;
 		}
-
-		Log.info("set sort order.");
 
 		if (!this.config.listID) {
 			Log.log("config listID required");
@@ -70,13 +70,32 @@ Module.register("MMM-GoogleTasks", {
 			self.loaded = true;
 			if (payload.items) {
 			   	self.tasks = payload.items;
-				self.updateDom(self.config.animationSpeed)
+				self.updateDom(self.config.animationSpeed);
 			} else {
 				self.tasks = null;
-				Log.info("No tasks found.")
-				self.updateDom(self.config.animationSpeed)
+				Log.info("No tasks found.");
+				self.updateDom(self.config.animationSpeed);
 			}
-		}
+		} else if (notification === "TASKS_API_ERROR") {
+                	self.hasError = true;
+			//self.errorMessage = payload;
+			self.errorMessage = "Error loading GoogleTasks; see logs. <br>";
+			if (payload) {
+				if (payload.code) {
+					self.errorMessage += "Code: " + payload.code + " ";
+				}
+				if (payload.message) {
+					self.errorMessage += payload.message + "<br>";
+				}
+				if (payload.details) {
+					for (const detail of payload.details) {
+						self.errorMessage += "* " + detail + "<br>";
+					}
+				}
+
+			}
+			self.updateDom(self.config.animationSpeed);
+	        }
 	},
 
 	getDom: function() {
@@ -92,8 +111,16 @@ Module.register("MMM-GoogleTasks", {
 			numTasks = Object.keys(taskList).length;
 		}
 
+		if (this.hasError){
+			// May not  need to recover from error; most errors will require restart
+			// @TODO: try it like this for a while and see how it works.
+			wrapper.innerHTML = this.errorMessage;
+			wrapper.className = this.config.tableClass + " dimmed";
+			wrapper.className = this.config.tableClass + " error";
+			return wrapper;
+		}
+
 		if (!taskList) {
-			// @TODO: add error checking here and report something useful
 			wrapper.innerHTML = (this.loaded) ? "EMPTY" : "LOADING";
 			wrapper.className = this.config.tableClass + " dimmed";
 			return wrapper;

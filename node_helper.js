@@ -24,14 +24,19 @@ module.exports = NodeHelper.create({
             }
         } else if (notification === "REQUEST_UPDATE") {
             this.getList(payload);
-        }
+	}
     },
 
     authenticate: function() {
         var self = this;
 
         fs.readFile(self.path + '/credentials.json', (err, content) => {
-            if (err) return console.log('Error loading client secret file:', err);
+            if (err) {
+		var payload = {code: err.code, message: err.message, details: err.details};
+
+		self.sendSocketNotification("TASKS_API_ERROR", payload);
+		return console.log('Error loading client secret file:', err);
+	    }
             // Authorize a client with credentials, then call the Google Tasks API.
             authorize(JSON.parse(content), self.startTasksService);
           });
@@ -69,7 +74,11 @@ module.exports = NodeHelper.create({
             showCompleted: config.showCompleted,
             showHidden: config.showHidden,
         }, (err, res) => {
-            if (err) return console.error('The API returned an error: ' + err);
+            if (err) {
+		var payload = {code: err.code, message: err.message, details: err.details};
+		self.sendSocketNotification("TASKS_API_ERROR", payload);
+	 	return console.error('The API returned an error: ' + err);
+	    }
 
             // Testing
             /* 
