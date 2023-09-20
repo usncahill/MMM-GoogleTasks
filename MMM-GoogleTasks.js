@@ -3,6 +3,7 @@ Module.register("MMM-GoogleTasks", {
 	defaults: {
 
 		listID: "", // List ID (see authenticate.js)
+		listName: "",  // added for usncahill to provide a unique pathing suffix to credentials files
 		maxResults: 10,		
 		dateFormat: "MMM Do", 	// Format to display dates (moment.js formats)
 		updateInterval: 100000, // Time between content updates (millisconds)
@@ -11,7 +12,7 @@ Module.register("MMM-GoogleTasks", {
 		sortOrder: "ascending", // [ascending, descending]
 		sortBy: "due", 		// [due, updated, default, title]
 		groupSubTasks: true, 	// [true, false]
-		taskIcon: "bx:square-rounded", // something from the iconify icon set		
+		taskIcon: "bx:square-rounded", // something from the iconify icon set
 	},
 	
 	// Define required scripts
@@ -38,7 +39,6 @@ Module.register("MMM-GoogleTasks", {
 		this.hasError = false;
 		this.errorMessage = "";
 
-
 		if (this.config.sortOrder == "ascending") {
 			this.sortOrderVal = this.ASCENDING;
 		} else if (this.config.sortOrder == "descending") {
@@ -48,7 +48,7 @@ Module.register("MMM-GoogleTasks", {
 		if (!this.config.listID) {
 			Log.log("config listID required");
 		} else {
-			this.sendSocketNotification("MODULE_READY", {});
+			this.sendSocketNotification("MODULE_READY", this.config);
 		}
 	},
 
