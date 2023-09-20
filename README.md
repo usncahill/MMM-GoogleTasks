@@ -19,11 +19,14 @@ To install the module, use your terminal to:
 
 ## Authentication Setup
 Google Tasks API an authenticated OAuth2 client:
-1. Go [here](https://developers.google.com/tasks/quickstart/nodejs), and click "Enable the Google Tasks API" button. Follow the steps to download the credentials.json file. 
-2. Move credentials.json to your MMM-GoogleTasks directory (MagicMirror/modules/MMM-GoogleTasks/)
-3. [Enable Google Tasks API](https://console.cloud.google.com/apis/library/tasks.googleapis.com). Select the same project as in step 1.
-4. Run authenticate.js:<br />`node authenticate.js`
-5. Follow the instructions and it should print your lists. Copy the ID of the list you want to the config listID
+1. Go [here](https://developers.google.com/tasks/quickstart/nodejs), and click "Enable the Google Tasks API" button. Follow the steps.
+2. After the directions browse to [console.cloud.google.com/apis/credentials](console.cloud.google.com/apis/credentials) page of your project, click the download button on the Actions column of the OAuth 2.0 Client IDs table on the console.cloud.google.com/apis/credentials page of your project) and save the file as credentials.json in your MMM-GoogleTasks directory (MagicMirror/modules/MMM-GoogleTasks/).
+4. [Enable Google Tasks API](https://console.cloud.google.com/apis/library/tasks.googleapis.com). Select the same project as in step 1.
+5. Run authenticate.js:<br />`node ./authenticate.js`
+6. Follow the instructions and it should print your lists. Copy the ID of the list you want to the config listID.
+7. Save the desired listID and a unique listName for this list in the config.js.
+8. Rename the generated credentials.json and token.json as follows: credentialsLISTNAMEHERE.json and tokenLISTNAMEHERE.json.
+9. Repeat all steps for each user for multi-user support.
 
 ## Using the module
 
@@ -40,6 +43,7 @@ var config = {
             position: "top_left",
             config: {
                 listID: "",
+                listName: "Foo"
                 ...
                 // See below for Configuration Options
             }
@@ -54,6 +58,7 @@ var config = {
 | Option                  | Details
 |------------------------ |--------------
 | `listID`                | *Required* - List ID printed from authenticate.js (see installation)
+| `listName`              | *Required* - Unique list name used to differentiate credentials.json and token.json in the same install.
 | `maxResults`            | *Optional* - Max number of list items to retrieve. <br><br> **Possible values:** `0` - `100` <br> **Default value:** `10`
 | `showCompleted`         | *Optional* - Show completed task items <br><br> **Possible values:** `true`  `false` <br> **Default value:** `false`
 | `dateFormat`            | *Optional* - Format to use for due date <br><br> **Possible values:** See [Moment.js formats](http://momentjs.com/docs/#/parsing/string-format/) <br> **Default value:** `MMM Do` (e.g. Jan 18th)
