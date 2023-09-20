@@ -48,7 +48,10 @@ function getNewToken(oAuth2Client, callback) {
     input: process.stdin,
     output: process.stdout,
   });
-  rl.question('Enter the code from that page here: ', (code) => {
+  rl.question('\nAn error loading the redirect page after approving access is acceptable.\n' +
+              'Copy the text between ?code= and &scope from the URL in the address bar.\n' +
+              'Example: 4/cmFuZG9tLWxvb2tpbmctbGV0dGVycy1hbmQtbnVtYmVycw\n' +
+              'Paste here: ', (code) => {
     rl.close();
     oAuth2Client.getToken(code, (err, token) => {
       if (err) return callback(err);
