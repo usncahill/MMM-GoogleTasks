@@ -15,8 +15,9 @@ module.exports = NodeHelper.create({
 
     socketNotificationReceived: function(notification, payload) {
 
-        this.config[payload.listID] = payload; // save config stuff for later as needed
         if (notification === "MODULE_READY") {
+            this.config[payload.listID] = payload; // save config stuff for later as needed
+            
             if(!this.service[payload.listID]) {
                 this.authenticate(payload.listID);
             } else {

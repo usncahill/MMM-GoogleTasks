@@ -7,6 +7,7 @@ Module.register("MMM-GoogleTasks", {
         dateFormat: "MMM Do",   // Format to display dates (moment.js formats)
         updateInterval: 5,      // Time between content updates (minutes)
         animationSpeed: 2,      // Speed of the update animation (seconds)
+        width: 320,
         tableClass: "small",    // Name of the classes issued from main.css
         sortOrder: "ascending", // [ascending, descending]
         sortBy: "due",          // [due, updated, default, title]
@@ -58,11 +59,12 @@ Module.register("MMM-GoogleTasks", {
             // Create repeating call to node_helper get list
             setInterval(function() {
                 self.sendSocketNotification("REQUEST_UPDATE", self.config);
-            }, 1000 * 60 * self.config.updateInterval);
+            }, this.config.updateInterval * 60 * 1000);
         // Check if payload id matches module id
         } else if (notification === "UPDATE_DATA" && payload.id === self.config.listID) {
             // Handle new data
             self.loaded = true;
+            
             if (payload.items) {
                 self.tasks = payload.items;
                 self.updateDom(self.config.animationSpeed * 1000);
@@ -88,12 +90,14 @@ Module.register("MMM-GoogleTasks", {
                     }
                 }
             }
+            
             self.updateDom(self.config.animationSpeed * 1000);
-            }
+        }
     },
 
     getDom: function() {
         var wrapper = document.createElement('div');
+        wrapper.style = "width:" + this.config.width + "px;";
         wrapper.className = "container ";
         wrapper.className += this.config.tableClass;
 

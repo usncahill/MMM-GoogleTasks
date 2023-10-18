@@ -58,8 +58,9 @@ var config = {
 | Option                  | Details
 |------------------------ |--------------
 | `listID`                | *Required* - List ID printed from authenticate.js (see installation)
-| `listName`              | *Required* - Unique list name used to differentiate credentials.json and token.json in the same install.
+| `listName`              | *Required* - Unique list name used to differentiate token.json for multiple lists.
 | `maxResults`            | *Optional* - Max number of list items to retrieve. <br><br> **Possible values:** `0` - `100` <br> **Default value:** `10`
+| `width`                 | *Optional* - sets the module width. <br>**Default value:** `320` px 
 | `showCompleted`         | *Optional* - Show completed task items <br><br> **Possible values:** `true`  `false` <br> **Default value:** `false`
 | `dateFormat`            | *Optional* - Format to use for due date <br><br> **Possible values:** See [Moment.js formats](http://momentjs.com/docs/#/parsing/string-format/) <br> **Default value:** `MMM Do` (e.g. Jan 18th)
 | `updateInterval`        | *Optional* - Interval at which content updates (minutes) <br>Tasks API has default maximum of 50,000 calls per day. <br> **Default value:** `5` minutes
