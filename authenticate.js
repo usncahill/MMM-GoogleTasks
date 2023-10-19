@@ -43,7 +43,7 @@ function getNewToken(oAuth2Client, callback) {
     access_type: 'offline',
     scope: SCOPES,
   });
-  console.log('Authorize this app by visiting this url:', authUrl);
+  console.log('Authorize this app by visiting this url (ctrl+click or copy-paste):', authUrl);
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
