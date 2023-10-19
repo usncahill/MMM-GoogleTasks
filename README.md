@@ -57,7 +57,7 @@ var config = {
 | Option                  | Details
 |------------------------ |--------------
 | `listID`                | *Required* - List ID printed from authenticate.js (see installation)
-| `listName`              | *Required* - Unique list name used to differentiate token.json for multiple lists.
+| `listName`              | *Required* - Unique name used to differentiate token.json for multiple users' lists. The same token can be used for multiple single-user lists.
 | `maxResults`            | *Optional* - Max number of list items to retrieve. <br><br> **Possible values:** `0` - `100` <br> **Default value:** `10`
 | `width`                 | *Optional* - sets the module width. <br>**Default value:** `320` px 
 | `showCompleted`         | *Optional* - Show completed task items <br><br> **Possible values:** `true`  `false` <br> **Default value:** `false`
