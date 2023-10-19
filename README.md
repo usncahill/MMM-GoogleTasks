@@ -24,7 +24,7 @@ Google Tasks API an authenticated OAuth2 client:
 5. Run authenticate.js:<br />`node ./authenticate.js` from your MMM-GoogleTasks directory.
 6. Follow the script instructions and it should print your lists. Copy the ListID of the list you want.
 7. Save the desired listID and a unique listName for this list in the config.js.
-8. Rename the generated token.json as follows: token\<listname\>.json.
+8. Rename the generated token.json as follows: `tokenLISTNAME.json`, e.g. `tokenJeff.json` where `listName='Jeff'`.
 9. Repeat all steps for each user for multi-user support.
 
 ## Using the module
