@@ -14,9 +14,9 @@ module.exports = NodeHelper.create({
     },
 
     socketNotificationReceived: function(notification, payload) {
-
-        this.config[payload.listID] = payload; // save config stuff for later as needed
         if (notification === "MODULE_READY") {
+            this.config[payload.listID] = payload; // save config stuff for later as needed
+            
             if(!this.service[payload.listID]) {
                 this.authenticate(payload.listID);
             } else {
@@ -32,12 +32,12 @@ module.exports = NodeHelper.create({
     authenticate: function(listID) {
         var self = this;
 
-        fs.readFile(self.path + '/credentials' + self.config[listID].listName + '.json', (err, content) => {
+        fs.readFile(self.path + '/credentials.json', (err, content) => {
             if (err) {
                 var payload = {code: err.code, message: err.message, details: err.details};
 
                 self.sendSocketNotification("TASKS_API_ERROR", payload);
-                return console.log('Error loading client secret file:', err);
+                return console.log('Error loading credentials file:', err);
             }
             // Authorize a client with credentials, then call the Google Tasks API.
             authorize(JSON.parse(content), listID, self.startTasksService);
