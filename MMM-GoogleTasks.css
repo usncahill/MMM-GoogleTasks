@@ -19,7 +19,7 @@
 
   .MMM-GoogleTasks .item.notes {
       padding-left: .95em;
-      font-size: 0.8em;
+      font-size: 1em;
       padding-bottom: 0;
   }
 
@@ -39,5 +39,5 @@
     vertical-align: middle;
     padding-bottom: .25em;
     padding-right: .3em;
-    font-size: 0.50em;
+    font-size: 1em;
   }

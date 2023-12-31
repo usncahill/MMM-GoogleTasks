@@ -89,6 +89,8 @@ Module.register("MMM-GoogleTasks", {
                         self.errorMessage += "* " + detail + "<br>";
                     }
                 }
+                
+                this.sendSocketNotification("MODULE_READY", this.config); //try restarting it including auth
             }
             
             self.updateDom(self.config.animationSpeed * 1000);
